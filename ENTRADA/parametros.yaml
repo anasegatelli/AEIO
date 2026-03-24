@@ -1,0 +1,15 @@
+# Edite este arquivo
+  Projeto: sensitive-trusted
+  Dataset: sellout
+  Tabela: tb_fato_categoria
+  Tipo de Carga: FULL
+  Schedule: 0 5 21 * *
+  Campo Delta: 
+  Faixa Delta: 
+  Iniciativa: inic1500
+  Descrição: Executa a carga da tabela fato mercado Iqvia
+  Tabela de origem: sensitive-raw.raw_iqvia.fact_category_ds_gc
+  Squad/Time: eng
+  Tags: Projeto:Sellout,Iqvia Iniciativa:inic1500
+  sandbox: ssbx-mulitb
+  owner: email@grupoboticario.com.br
