@@ -234,14 +234,25 @@ Para questões e sugestões, entre em contato através de [seu-email@example.com
 **Desenvolvido com ❤️ para automação de engenharia de dados**
 
 
-Saídas:
+## Saídas:
 
-Validador:
+![alt text](image-5.png)
+
+## Validador:
 
 ![alt text](image.png)
 
-DAG:
+## DAG:
 
-Tabela:
+![alt text](image-1.png)
+![alt text](image-2.png)
 
-Procedure:
+## Tabela:
+
+![alt text](image-6.png)
+![alt text](image-7.png)
+
+## Procedure:
+
+![alt text](image-3.png)
+![alt text](image-4.png)
