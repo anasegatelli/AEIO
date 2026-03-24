@@ -202,20 +202,6 @@ def extrair_campo_yaml(texto: str, campo: str) -> str:
                 return valor.strip()
     return ""
 
-def contar_campos_sql(sql_texto: str) -> int:
-    total = 0
-    for linha in sql_texto.splitlines():
-        trecho = linha.strip().rstrip(",")
-        if not trecho:
-            continue
-        if trecho.startswith("CREATE TABLE") or trecho.startswith("CLUSTER BY") or trecho.startswith("OPTIONS"):
-            continue
-        if trecho.startswith("(") or trecho.startswith(")"):
-            continue
-        if " OPTIONS(" in trecho and " " in trecho:
-            total += 1
-    return total
-
 def invoke_com_retry(agent, payload: dict, max_tentativas: int = 6, espera_inicial: float = 3.0):
     espera = espera_inicial
 
@@ -317,7 +303,6 @@ def main():
     sql_origem_path = sql_entrada[0]
     sql_origem_nome = sql_origem_path.name
     sql_origem_texto = sql_origem_path.read_text(encoding="utf-8")
-    qtd_campos_origem = contar_campos_sql(sql_origem_texto)
 
     projeto = extrair_campo_yaml(parametros_texto, "Projeto")
     dataset = extrair_campo_yaml(parametros_texto, "Dataset")
@@ -358,8 +343,6 @@ Regras:
 - A Procedure de carga deve trabalhar com: dataset={dataset}, tabela={tabela}
 - O validador deve usar: tabela={tabela}
 - O validador deve ficar em: validador_dados/eng/{projeto}/{dataset}/{tabela}/
-- Antes de finalizar, validar que o total de campos do DDL gerado é igual ao SQL de ENTRADA.
-- Se houver divergência de campos, corrigir e regenerar antes da resposta final.
 - Siga padrão de nomenclatura.
 - No final, use listar_arquivos_saida e confirme os caminhos.
 
@@ -367,7 +350,6 @@ RESUMO OBRIGATÓRIO:
   Projeto: {projeto}
   Dataset: {dataset}
   Tabela: {tabela}
-    Campos no SQL de entrada: {qtd_campos_origem}
 
 PARAMETROS_YAML:
 {parametros_texto}

@@ -143,7 +143,7 @@ dag_factory.json :
             "validador": {
                 "operator": "BigQueryJob",
                 "query": [
-                "CALL `data-quality-gb.sp.prc_dataquality_log_carga`('var.raw','raw_internacional','tb_cpi_rm3','0','0','na');",
+                "CALL `data-quality-gb.sp.prc_dataquality_log_carga`('var.rawz','raw_internacional','tb_cpi_rm3','0','0','na');",
                 ]
             }
             }
@@ -153,12 +153,12 @@ dag_factory.json :
             "task_id": "tb_sellout_pt",
             "task": {
                 "operator": "BigQueryJob",
-                "query": "CALL `sensitive-trusted.sp.prc_load_tb_sellout_pt`('var.raw','var.c_raw','var.trd','var.rfd','var.s_raw','var.s_trd','var.s_rfd');"
+                "query": "CALL `sensitive-trusted.sp.prc_load_tb_sellout_pt`('var.rawz','var.rawc','var.truz','var.rfd','var.raws','var.trus','var.refs');"
             },
             "validador": {
                 "operator": "BigQueryJob",
                 "query": [
-                "CALL `data-quality-gb.sp.prc_dataquality_log_carga`('var.s_trd','sellout','tb_sellout_pt','0','0','na');",
+                "CALL `data-quality-gb.sp.prc_dataquality_log_carga`('var.trds','sellout','tb_sellout_pt','0','0','na');",
                 ]
             },
             "dependencies": [

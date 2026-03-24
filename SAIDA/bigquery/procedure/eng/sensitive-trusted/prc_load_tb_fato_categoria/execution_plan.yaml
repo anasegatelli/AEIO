@@ -1,0 +1,53 @@
+# ========================================================================
+# Objeto......: execution_plan.yaml
+# Tabela......: tb_fato_categoria
+# Camada......: sensitive-trusted
+# Version.....: 0.0.1
+# Criacao.....: 2026-03-22
+# ========================================================================
+
+identifiers:
+  gb-iniciativa: inic1500
+
+resource:
+  dev:
+    project_id: ssbx-mulitb
+    dataset_id: sp
+    config:
+      des_processo: prc_load_tb_fato_categoria
+      des_dataset: sellout
+      des_tabela_destino: tb_fato_categoria
+      des_frequencia: DIARIO
+      des_tipo_delta: FULL
+      des_campo_delta: null
+      vlr_faixa_delta_inicio: null
+      vlr_faixa_delta_fim: null
+    params:
+      raw_zone: ssbx-mulitb
+      raw_custom_zone: ssbx-mulitb
+      trusted_zone: ssbx-mulitb
+      refined_zone: ssbx-mulitb
+      sensitive_raw: ssbx-mulitb
+      sensitive_trusted: ssbx-mulitb
+      sensitive_refined: ssbx-mulitb
+
+  prd:
+    project_id: sensitive-trusted
+    dataset_id: sp
+    config:
+      des_processo: prc_load_tb_fato_categoria
+      des_dataset: sellout
+      des_tabela_destino: tb_fato_categoria
+      des_frequencia: DIARIO
+      des_tipo_delta: FULL
+      des_campo_delta: null
+      vlr_faixa_delta_inicio: null
+      vlr_faixa_delta_fim: null
+    params:
+      raw_zone: raw-zone-005
+      raw_custom_zone: raw-custom-zone
+      trusted_zone: trusted-zone
+      refined_zone: refined-zone
+      sensitive_raw: sensitive-raw
+      sensitive_trusted: sensitive-trusted
+      sensitive_refined: sensitive-refined

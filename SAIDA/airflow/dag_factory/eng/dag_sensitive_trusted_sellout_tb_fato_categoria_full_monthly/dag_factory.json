@@ -1,0 +1,79 @@
+{
+  "documentation": {
+    "description": "Tabela que centraliza as informações de categoria de mercado da Iqvia, utilizada para análises de vendas e performance de produtos no contexto Sellout",
+    "doc_md": "DAG referente à tabela sensitive-trusted.sellout.tb_fato_categoria"
+  },
+  "head": {
+    "start_date": "2026-03-01",
+    "schedule": "var.scl",
+    "tags": [
+      "Projeto:Sellout",
+      "Iqvia",
+      "Iniciativa:inic1500"
+    ]
+  },
+  "variables": {
+    "dev": {
+      "schedule": "None",
+      "rawz": "ssbx-mulitb",
+      "rawc": "ssbx-mulitb",
+      "raws": "ssbx-mulitb",
+      "truz": "ssbx-mulitb",
+      "trus": "ssbx-mulitb",
+      "refz": "ssbx-mulitb",
+      "refs": "ssbx-mulitb",
+      "prj_data_quality": "ssbx-mulitb",
+      "dqu_config_log_carga": "1",
+      "job_arqninja_1": ""
+    },
+    "prd": {
+      "schedule": "0 5 21 * *",
+      "rawz": "raw-zone-005",
+      "rawc": "raw-custom-zone",
+      "raws": "sensitive-raw",
+      "truz": "trusted-zone",
+      "trus": "sensitive-trusted",
+      "refz": "refined-zone",
+      "refs": "sensitive-refined",
+      "prj_data_quality": "trusted-zone",
+      "dqu_config_log_carga": "1",
+      "job_arqninja_1": ""
+    }
+  },
+  "sources": [
+    {
+      "task_id": "tb_fact_category_ds_gc",
+      "task": {
+        "operator": "TaskSensor",
+        "external_dag_id": "dag_sensitive_raw_raw_iqvia_fact_category_ds_gc",
+        "poke_interval": 5,
+        "timeout": 2,
+        "dependency_mode": "last_today"
+      },
+      "validador": {
+        "operator": "BigQueryJob",
+        "query": [
+          "CALL `data-quality-gb.sp.prc_dataquality_log_carga`('var.raws','raw_iqvia','fact_category_ds_gc','0','0','na');"
+        ]
+      }
+    }
+  ],
+  "targets": [
+    {
+      "task_id": "tb_fato_categoria",
+      "task": {
+        "operator": "BigQueryJob",
+        "query": "CALL `sensitive-trusted.sp.prc_load_tb_fato_categoria`('var.rawz','var.rawc','var.truz','var.refz','var.raws','var.trus','var.refs');"
+      },
+      "validador": {
+        "operator": "BigQueryJob",
+        "query": [
+          "CALL `data-quality-gb.sp.prc_dataquality_log_carga`('var.trus','sellout','tb_fato_categoria','0','0','na');"
+        ]
+      },
+      "dependencies": [
+        "tb_fact_category_ds_gc"
+      ]
+    }
+  ]
+}

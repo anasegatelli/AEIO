@@ -1,0 +1,8 @@
+owner: email@grupoboticario.com.br
+production_table: sensitive-trusted.sellout.tb_fato_categoria
+sandbox_table: ssbx-mulitb.sellout.tb_fato_categoria
+checks:
+  - __info__: Validade - se a tabela está vazia
+    payload: {}
+    rule_name: emptyTable
+    initiative_id: inic1500

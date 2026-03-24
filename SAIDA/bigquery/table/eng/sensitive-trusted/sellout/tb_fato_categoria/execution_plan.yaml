@@ -1,0 +1,16 @@
+# ========================================================================
+# Objeto......: execution_plan.yaml
+# Tabela......: tb_fato_categoria
+# Camada......: sensitive-trusted
+# Version.....: 0.0.1
+# Criacao.....: 2026-03-22
+# Proposito...: Metadados e plano de execução da tabela
+# ========================================================================
+
+identifiers:
+  gb-iniciativa: inic1500
+resource:
+  dev:
+    project_id: ssbx-mulitb
+  prd:
+    project_id: sensitive-trusted
