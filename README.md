@@ -256,3 +256,7 @@ Para questões e sugestões, entre em contato através de [seu-email@example.com
 
 ![alt text](image-3.png)
 ![alt text](image-4.png)
+
+## Versionamento Git:
+
+![alt text](image-8.png)
