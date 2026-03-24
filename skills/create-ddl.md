@@ -115,16 +115,6 @@ ARQUIVO 1: tb_{nome_tabela}.sql
 
 TEMPLATE DDL:
 
--- ========================================================================
--- Objeto......: create_tb_{nome_tabela}
--- Camada......: {projeto}
--- Version.....: 0.0.1
--- Data Criacao: {data_criacao}
--- Data Update.: {data_criacao}
--- Squad.......: {squad_time}
--- Descricao...: DDL da tabela tb_{nome_tabela}
--- ========================================================================
-
 CREATE TABLE IF NOT EXISTS {dataset}.tb_{nome_tabela} (
     -- Identificadores
     id_chave_primaria       INT64           OPTIONS(description="Chave primária da tabela"),
@@ -168,9 +158,54 @@ informações sobre a tabela.
 
 TEMPLATE:
 
+# ========================================================================
+# Objeto......: execution_plan.yaml
+# Tabela......: tb_{nome_tabela}
+# Camada......: {projeto}
+# Version.....: 0.0.1
+# Criacao.....: {data_criacao}
+# Proposito...: Metadados e plano de execução da tabela
+# ========================================================================
+
 identifiers:
   gb-iniciativa: {iniciativa}
+
 resource:
+  table:
+    project_id: {projeto}
+    dataset_id: {dataset}
+    table_id: tb_{nome_tabela}
+
+    metadata:
+      description: "{descricao}"
+      squad: "{squad_time}"
+      layer: "{projeto}"
+      version: "0.0.1"
+      created_at: "{data_criacao}"
+
+    schema:
+      fields:
+        - name: "{campo}"
+          type: "{tipo}"
+          mode: "NULLABLE"
+          description: "{descricao_campo}"
+        # repetir para cada campo da tabela
+
+    partitioning:
+      type: "TIME"
+      field: "dt_carga"
+
+    clustering:
+      fields:
+        - "{campo_cluster_1}"
+        # adicionar demais campos de clustering
+
+    options:
+      labels:
+        projeto: "{projeto}"
+        dataset: "{dataset}"
+        squad: "{squad_time}"
+
   dev:
     project_id: {sandbox}
   prd:
@@ -181,6 +216,12 @@ VARIÁVEIS DE SUBSTITUIÇÃO:
 
 {projeto}: trusted-zone ou sensitive-trusted
 {sandbox}: Projeto do ambiente de desenvolvimento
+{dataset}: Nome do dataset
+{nome_tabela}: Nome da tabela sem prefixo tb_
+{iniciativa}: Código da iniciativa (ex: inic1500)
+{descricao}: Descrição da tabela
+{squad_time}: Squad responsável
+{data_criacao}: Data atual no formato YYYY-MM-DD
 
 ================================================================================
 NOMES DE CAMPOS - PADRÃO DE NOMENCLATURA

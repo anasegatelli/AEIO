@@ -232,3 +232,16 @@ Para questões e sugestões, entre em contato através de [seu-email@example.com
 ---
 
 **Desenvolvido com ❤️ para automação de engenharia de dados**
+
+
+Saídas:
+
+Validador:
+
+![alt text](image.png)
+
+DAG:
+
+Tabela:
+
+Procedure:
